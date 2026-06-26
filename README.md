@@ -1,5 +1,8 @@
 # F1 Analytics
 
+<img width="1814" height="910" alt="imagen" src="https://github.com/user-attachments/assets/1d15b258-286f-4d1c-898f-fc969db27c0c" />
+
+
 Panel de análisis de Fórmula 1 con datos de **FastF1** servidos por un backend
 **FastAPI** y un frontend **React 19 + TanStack Start + Tailwind v4**.
 
