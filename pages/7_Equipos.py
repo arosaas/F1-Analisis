@@ -127,7 +127,7 @@ else:
     fig, ax = plt.subplots(figsize=(11, 6))
     fig.patch.set_alpha(0.0)
     box = ax.boxplot(
-        data_by_team, labels=team_order, patch_artist=True,
+        data_by_team, label=team_order, patch_artist=True,
         showfliers=False, medianprops={"color": "black"},
     )
     for patch, color in zip(box["boxes"], team_colors):
