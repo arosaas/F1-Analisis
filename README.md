@@ -210,35 +210,3 @@ bun run dev
 ```
 *(Nota: Si el script demanda `npm` y no lo tienes instalado, instálalo vía `sudo dnf install nodejs`).*
 
-### 2. Configuración del Entorno (Fedora / GNOME)
-
-#### Teclado no configurado correctamente en Wayland
-Si la configuración general falla y las teclas de puntuación están mapeadas en inglés, fuerza el esquema desde GNOME:
-```bash
-gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'es')]"
-```
-
-#### Atajos de terminal no funcionan (Ctrl+Alt+T)
-GNOME ha sustituido `gnome-terminal`. Si configuras un atajo personalizado y no se abre, cambia el comando del atajo por `ptyxis` o `kgx`. Si prefieres el terminal clásico:
-```bash
-sudo dnf install gnome-terminal
-```
-
-#### Botones de minimizar y maximizar ocultos
-GNOME oculta estos botones por defecto. Para restaurarlos en tus herramientas de desarrollo y navegadores:
-```bash
-gsettings set org.gnome.desktop.wm.preferences button-layout ':minimize,maximize,close'
-```
-
-#### Clic derecho del trackpad no responde
-Por defecto, GNOME usa un toque con dos dedos para el clic derecho. Para volver al área tradicional (esquina inferior derecha):
-```bash
-gsettings set org.gnome.desktop.peripherals.touchpad click-method 'areas'
-```
-
-#### Conflicto de extensiones: Iconos enanos en Dash to Dock
-Si usas **Dash to Dock** junto con **Just Perfection** y los iconos de la barra inferior se reducen a un tamaño minúsculo (ej. 16px):
-1. Abre la configuración de **Just Perfection**.
-2. Navega a la pestaña **Personalizar**.
-3. Localiza la opción **Tamaño de los Iconos del Dash**.
-4. Cámbiala de `16px` a `0` (o `Predeterminada` / `Por Tema del Shell`).
