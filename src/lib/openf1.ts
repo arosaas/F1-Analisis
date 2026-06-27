@@ -153,10 +153,24 @@ export function fastestLap(laps: Lap[]): Lap | null {
   return valid.reduce((a, b) => (a.lap_duration! < b.lap_duration! ? a : b));
 }
 
-export function lapEnd(lap: Lap): string {
-  const start = new Date(lap.date_start!).getTime();
-  return new Date(start + (lap.lap_duration ?? 0) * 1000).toISOString();
+// Normaliza timestamps "naive" de FastF1 (sin zona) asumiendo UTC
+export function normalizeIsoUtc(iso: string): string {
+  if (!iso) return iso;
+  // Si ya trae Z o offset (+hh:mm / -hh:mm), no tocar
+  if (/[zZ]|[+-]\d{2}:?\d{2}$/.test(iso)) return iso;
+  return iso + "Z";
 }
+
+export function lapStart(lap: { date_start: string }) {
+  return normalizeIsoUtc(lap.date_start);
+}
+
+export function lapEnd(lap: { date_start: string; duration?: number; lap_duration?: number }) {
+  const start = new Date(normalizeIsoUtc(lap.date_start)).getTime();
+  const dur = (lap.duration ?? lap.lap_duration ?? 0) * 1000;
+  return new Date(start + dur).toISOString();
+}
+
 
 export function teamColor(d: Pick<Driver, "team_colour"> | undefined, fallback = "#9ca3af"): string {
   if (!d?.team_colour) return fallback;

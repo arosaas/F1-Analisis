@@ -58,13 +58,12 @@ function Standings() {
               <div key={s.Driver.driverId} className="bg-background p-4 grid grid-cols-12 items-center gap-3">
                 <div className="col-span-1 font-display text-2xl text-racing">{s.position.padStart(2, "0")}</div>
                 <div className="col-span-3 font-mono text-sm">{s.Driver.givenName} <span className="font-semibold">{s.Driver.familyName}</span></div>
-                <div className="col-span-3 font-mono text-xs text-muted-foreground">{s.Constructors[0]?.name}</div>
+                <div className="col-span-2 font-mono text-xs text-muted-foreground">{s.Constructors[0]?.name}</div>
                 <div className="col-span-4 h-1.5 bg-surface relative overflow-hidden">
                   <div className="absolute inset-y-0 left-0 bg-racing" style={{ width: `${pct}%` }} />
                 </div>
                 <div className="col-span-1 text-right font-mono text-xs text-muted-foreground">{s.wins}v</div>
-                <div className="col-span-12 md:col-span-12 mt-1 md:mt-0 hidden md:block" />
-                <div className="col-span-12 md:absolute md:right-6 md:top-1/2 md:-translate-y-1/2 md:col-auto font-display text-2xl text-right">{s.points}</div>
+                <div className="col-span-1 text-right font-display text-2xl">{s.points}</div>
               </div>
             );
           })}

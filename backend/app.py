@@ -305,11 +305,23 @@ def position(session_key: int = Query(...)) -> list[dict]:
 def _filter_by_date(df: pd.DataFrame, date_col: str, gte: str | None, lte: str | None) -> pd.DataFrame:
     if df.empty:
         return df
+    col_tz = getattr(df[date_col].dt, "tz", None)
+
+    def _ts(value: str) -> pd.Timestamp:
+        ts = pd.Timestamp(value)
+        if col_tz is None:
+            if ts.tzinfo is not None:
+                ts = ts.tz_convert("UTC").tz_localize(None)
+        else:
+            ts = ts.tz_localize(col_tz) if ts.tzinfo is None else ts.tz_convert(col_tz)
+        return ts
+
     if gte:
-        df = df[df[date_col] >= pd.Timestamp(gte)]
+        df = df[df[date_col] >= _ts(gte)]
     if lte:
-        df = df[df[date_col] <= pd.Timestamp(lte)]
+        df = df[df[date_col] <= _ts(lte)]
     return df
+
 
 
 @app.get("/v1/car_data")
